@@ -1,3 +1,4 @@
+import moment from "moment";
 import { DomainError } from "../../errors/domain-error";
 
 export class BirthDate {
@@ -7,18 +8,21 @@ export class BirthDate {
 	}
 
 	private validate(date: Date): void {
-		const isInvalidDate = Number.isNaN(date.getTime());
-		if (isInvalidDate) {
+		const isValidDate = moment(date).isValid();
+		if (!isValidDate) {
 			throw new DomainError("Invalid birth date");
 		}
 
-		const today = new Date();
-		if (date > today) {
+		const today = moment();
+		const isFutureDate = moment(date).isAfter(today);
+		if (isFutureDate) {
 			throw new DomainError("Invalid birth date");
 		}
 
-		const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-		if (date > eighteenYearsAgo) {
+		const eighteenYearsAgo = moment().subtract(18, "years");
+		const birthDate = moment(date);
+		const isUnderEighteen = birthDate.isAfter(eighteenYearsAgo);
+		if (isUnderEighteen) {
 			throw new DomainError("Invalid birth date");
 		}
 	}

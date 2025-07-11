@@ -19,4 +19,11 @@ describe("BirthDate Entity", () => {
 
 		expect(() => new BirthDate(futureDate)).toThrow(domainError);
 	});
+
+	it("Should throw a DomainError if the date is under 18 years old", () => {
+		const today = new Date();
+		const underEighteenYearsAgo = new Date(today.getFullYear() - 17, today.getMonth(), today.getDate());
+
+		expect(() => new BirthDate(underEighteenYearsAgo)).toThrow(domainError);
+	});
 });

@@ -10,5 +10,10 @@ export class Email {
 		if (isBlank) {
 			throw new DomainError("Invalid Email");
 		}
+
+		const isValidEmail = /^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$/.test(email);
+		if (!isValidEmail) {
+			throw new DomainError("Invalid Email");
+		}
 	}
 }

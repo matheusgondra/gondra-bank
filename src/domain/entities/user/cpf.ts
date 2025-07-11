@@ -10,14 +10,20 @@ export class CPF {
 	}
 
 	private validate(cpf: string): void {
-		const isValidLength = cpf.length === 11;
+		const cpfWithoutFormatting = this.clearFormatting(cpf);
+
+		const isValidLength = cpfWithoutFormatting.length === 11;
 		if (!isValidLength) {
 			throw new DomainError("Invalid CPF");
 		}
 
-		const isValidSequence = !/^(\d)\1{10}$/.test(cpf);
+		const isValidSequence = !/^(\d)\1{10}$/.test(cpfWithoutFormatting);
 		if (!isValidSequence) {
 			throw new DomainError("Invalid CPF");
 		}
+	}
+
+	private clearFormatting(cpf: string): string {
+		return cpf.replaceAll(".", "").replaceAll("-", "");
 	}
 }

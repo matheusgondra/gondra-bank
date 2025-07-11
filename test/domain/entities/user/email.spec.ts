@@ -13,4 +13,11 @@ describe("Email Entity", () => {
 		const invalidValue = "invalid-email";
 		expect(() => new Email(invalidValue)).toThrow(domainError);
 	});
+
+	it("Should return a valid Email instance if email value is valid", () => {
+		const validValue = "test@example.com";
+		const email = new Email(validValue);
+
+		expect(email).toBeInstanceOf(Email);
+	});
 });

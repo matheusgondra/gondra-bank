@@ -1,0 +1,340 @@
+{
+    "stocks": [
+        {
+            "symbol": "BOIB3",
+            "name": "Boi Bom",
+            "sector": "Agro",
+            "currentPrice": 25.50,
+            "dailyVariation": 1.2
+        },
+        {
+            "symbol": "BOIN3",
+            "name": "Boi Nobre",
+            "sector": "Agro",
+            "currentPrice": 18.75,
+            "dailyVariation": -0.8
+        },
+        {
+            "symbol": "AGUA3",
+            "name": "Água pra Todos",
+            "sector": "Serviços",
+            "currentPrice": 42.30,
+            "dailyVariation": 2.1
+        },
+        {
+            "symbol": "ENER3",
+            "name": "Energia BR",
+            "sector": "Serviços",
+            "currentPrice": 35.80,
+            "dailyVariation": 0.5
+        },
+        {
+            "symbol": "NUV3",
+            "name": "NuvemCinza",
+            "sector": "Tecnologia",
+            "currentPrice": 120.45,
+            "dailyVariation": 3.2
+        },
+        {
+            "symbol": "CHIP3",
+            "name": "ChipZilla",
+            "sector": "Tecnologia",
+            "currentPrice": 95.60,
+            "dailyVariation": -1.5
+        },
+        {
+            "symbol": "SOJA3",
+            "name": "Soja Brasil",
+            "sector": "Agro",
+            "currentPrice": 32.40,
+            "dailyVariation": 0.8
+        },
+        {
+            "symbol": "CAFE3",
+            "name": "Café Premium",
+            "sector": "Agro",
+            "currentPrice": 28.90,
+            "dailyVariation": -0.3
+        },
+        {
+            "symbol": "LIXO3",
+            "name": "Limpa Cidade",
+            "sector": "Serviços",
+            "currentPrice": 15.75,
+            "dailyVariation": 1.0
+        },
+        {
+            "symbol": "GAS3",
+            "name": "Gás Natural",
+            "sector": "Serviços",
+            "currentPrice": 38.20,
+            "dailyVariation": -0.5
+        },
+        {
+            "symbol": "SOFT3",
+            "name": "SoftTech",
+            "sector": "Tecnologia",
+            "currentPrice": 85.30,
+            "dailyVariation": 2.3
+        },
+        {
+            "symbol": "DADOS3",
+            "name": "Dados Brasil",
+            "sector": "Tecnologia",
+            "currentPrice": 72.10,
+            "dailyVariation": -1.2
+        },
+        {
+            "symbol": "MILH3",
+            "name": "Milho Brasil",
+            "sector": "Agro",
+            "currentPrice": 22.80,
+            "dailyVariation": 0.4
+        },
+        {
+            "symbol": "CANAA3",
+            "name": "Cana Açúcar",
+            "sector": "Agro",
+            "currentPrice": 19.45,
+            "dailyVariation": -0.7
+        },
+        {
+            "symbol": "LIMP3",
+            "name": "Limpeza Total",
+            "sector": "Serviços",
+            "currentPrice": 12.30,
+            "dailyVariation": 0.9
+        },
+        {
+            "symbol": "TEL3",
+            "name": "Telecom Brasil",
+            "sector": "Serviços",
+            "currentPrice": 45.60,
+            "dailyVariation": -0.2
+        },
+        {
+            "symbol": "INT3",
+            "name": "Internet BR",
+            "sector": "Tecnologia",
+            "currentPrice": 65.40,
+            "dailyVariation": 1.8
+        },
+        {
+            "symbol": "SEG3",
+            "name": "Segurança Digital",
+            "sector": "Tecnologia",
+            "currentPrice": 88.90,
+            "dailyVariation": -0.9
+        },
+        {
+            "symbol": "FRUT3",
+            "name": "Frutas Brasil",
+            "sector": "Agro",
+            "currentPrice": 27.30,
+            "dailyVariation": 0.6
+        },
+        {
+            "symbol": "HORT3",
+            "name": "Hortaliças BR",
+            "sector": "Agro",
+            "currentPrice": 21.80,
+            "dailyVariation": -0.4
+        },
+        {
+            "symbol": "TRANS3",
+            "name": "Transporte BR",
+            "sector": "Serviços",
+            "currentPrice": 33.50,
+            "dailyVariation": 1.1
+        },
+        {
+            "symbol": "LOG3",
+            "name": "Logística BR",
+            "sector": "Serviços",
+            "currentPrice": 29.70,
+            "dailyVariation": -0.6
+        },
+        {
+            "symbol": "MOB3",
+            "name": "Mobilidade BR",
+            "sector": "Tecnologia",
+            "currentPrice": 78.20,
+            "dailyVariation": 2.0
+        },
+        {
+            "symbol": "APP3",
+            "name": "Aplicativos BR",
+            "sector": "Tecnologia",
+            "currentPrice": 92.40,
+            "dailyVariation": -1.0
+        },
+        {
+            "symbol": "PECU3",
+            "name": "Pecuária BR",
+            "sector": "Agro",
+            "currentPrice": 24.60,
+            "dailyVariation": 0.7
+        },
+        {
+            "symbol": "PESCA3",
+            "name": "Pesca Brasil",
+            "sector": "Agro",
+            "currentPrice": 20.10,
+            "dailyVariation": -0.5
+        },
+        {
+            "symbol": "EDUC3",
+            "name": "Educação BR",
+            "sector": "Serviços",
+            "currentPrice": 16.80,
+            "dailyVariation": 0.8
+        },
+        {
+            "symbol": "SAUDE3",
+            "name": "Saúde BR",
+            "sector": "Serviços",
+            "currentPrice": 41.20,
+            "dailyVariation": -0.3
+        },
+        {
+            "symbol": "GAME3",
+            "name": "Games BR",
+            "sector": "Tecnologia",
+            "currentPrice": 68.90,
+            "dailyVariation": 1.5
+        },
+        {
+            "symbol": "REDE3",
+            "name": "Redes Sociais",
+            "sector": "Tecnologia",
+            "currentPrice": 105.30,
+            "dailyVariation": -0.8
+        },
+        {
+            "symbol": "FLOR3",
+            "name": "Flores BR",
+            "sector": "Agro",
+            "currentPrice": 19.40,
+            "dailyVariation": 0.5
+        },
+        {
+            "symbol": "MEL3",
+            "name": "Mel Brasil",
+            "sector": "Agro",
+            "currentPrice": 23.70,
+            "dailyVariation": -0.4
+        },
+        {
+            "symbol": "TUR3",
+            "name": "Turismo BR",
+            "sector": "Serviços",
+            "currentPrice": 14.90,
+            "dailyVariation": 0.9
+        },
+        {
+            "symbol": "HOTEL3",
+            "name": "Hotéis BR",
+            "sector": "Serviços",
+            "currentPrice": 37.60,
+            "dailyVariation": -0.2
+        },
+        {
+            "symbol": "IA3",
+            "name": "Inteligência BR",
+            "sector": "Tecnologia",
+            "currentPrice": 115.80,
+            "dailyVariation": 2.2
+        },
+        {
+            "symbol": "ROBO3",
+            "name": "Robótica BR",
+            "sector": "Tecnologia",
+            "currentPrice": 98.40,
+            "dailyVariation": -1.1
+        },
+        {
+            "symbol": "ORGA3",
+            "name": "Orgânicos BR",
+            "sector": "Agro",
+            "currentPrice": 26.20,
+            "dailyVariation": 0.6
+        },
+        {
+            "symbol": "VEG3",
+            "name": "Vegano BR",
+            "sector": "Agro",
+            "currentPrice": 22.50,
+            "dailyVariation": -0.3
+        },
+        {
+            "symbol": "CULT3",
+            "name": "Cultura BR",
+            "sector": "Serviços",
+            "currentPrice": 13.80,
+            "dailyVariation": 0.7
+        },
+        {
+            "symbol": "ESPORT3",
+            "name": "Esportes BR",
+            "sector": "Serviços",
+            "currentPrice": 31.40,
+            "dailyVariation": -0.5
+        }
+    ],
+    "fixedIncome": [
+        {
+            "id": "CDB001",
+            "name": "CDB Banco A",
+            "type": "CDB",
+            "rate": 0.12,
+            "rateType": "pre",
+            "maturity": "2024-12-31",
+            "minimumInvestment": 1000.00
+        },
+        {
+            "id": "CDB002",
+            "name": "CDB Banco B",
+            "type": "CDB",
+            "rate": 0.105,
+            "rateType": "pre",
+            "maturity": "2025-06-30",
+            "minimumInvestment": 5000.00
+        },
+        {
+            "id": "TD001",
+            "name": "Tesouro Selic 2025",
+            "type": "Tesouro Direto",
+            "rate": 0.115,
+            "rateType": "pos",
+            "maturity": "2025-01-01",
+            "minimumInvestment": 100.00
+        },
+        {
+            "id": "TD002",
+            "name": "Tesouro IPCA+ 2026",
+            "type": "Tesouro Direto",
+            "rate": 0.055,
+            "rateType": "pos",
+            "maturity": "2026-01-01",
+            "minimumInvestment": 100.00
+        },
+        {
+            "id": "CDB003",
+            "name": "CDB Banco C",
+            "type": "CDB",
+            "rate": 0.13,
+            "rateType": "pre",
+            "maturity": "2024-09-30",
+            "minimumInvestment": 2000.00
+        },
+        {
+            "id": "TD003",
+            "name": "Tesouro Prefixado 2027",
+            "type": "Tesouro Direto",
+            "rate": 0.12,
+            "rateType": "pre",
+            "maturity": "2027-01-01",
+            "minimumInvestment": 100.00
+        }
+    ]
+}

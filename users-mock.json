@@ -1,0 +1,74 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "name": "João Silva",
+            "email": "joao.silva@email.com",
+            "cpf": "123.456.789-00",
+            "birthDate": "1990-01-15"
+        },
+        {
+            "id": "2",
+            "name": "Maria Santos",
+            "email": "maria.santos@email.com",
+            "cpf": "987.654.321-00",
+            "birthDate": "1985-05-20"
+        },
+        {
+            "id": "3",
+            "name": "Pedro Oliveira",
+            "email": "pedro.oliveira@email.com",
+            "cpf": "456.789.123-00",
+            "birthDate": "1992-08-10"
+        },
+        {
+            "id": "4",
+            "name": "Ana Costa",
+            "email": "ana.costa@email.com",
+            "cpf": "789.123.456-00",
+            "birthDate": "1988-11-25"
+        },
+        {
+            "id": "5",
+            "name": "Carlos Pereira",
+            "email": "carlos.pereira@email.com",
+            "cpf": "321.654.987-00",
+            "birthDate": "1995-03-30"
+        },
+        {
+            "id": "6",
+            "name": "Juliana Lima",
+            "email": "juliana.lima@email.com",
+            "cpf": "654.987.321-00",
+            "birthDate": "1993-07-12"
+        },
+        {
+            "id": "7",
+            "name": "Lucas Ferreira",
+            "email": "lucas.ferreira@email.com",
+            "cpf": "147.258.369-00",
+            "birthDate": "1991-09-18"
+        },
+        {
+            "id": "8",
+            "name": "Mariana Alves",
+            "email": "mariana.alves@email.com",
+            "cpf": "258.369.147-00",
+            "birthDate": "1987-12-05"
+        },
+        {
+            "id": "9",
+            "name": "Rafael Souza",
+            "email": "rafael.souza@email.com",
+            "cpf": "369.147.258-00",
+            "birthDate": "1994-04-22"
+        },
+        {
+            "id": "10",
+            "name": "Beatriz Martins",
+            "email": "beatriz.martins@email.com",
+            "cpf": "147.369.258-00",
+            "birthDate": "1996-06-08"
+        }
+    ]
+}

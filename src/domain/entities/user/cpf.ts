@@ -9,6 +9,10 @@ export class CPF {
 		this.value = cpf;
 	}
 
+	getValue(): string {
+		return this.value;
+	}
+
 	private validate(cpf: string): void {
 		const cpfWithoutFormatting = this.clearFormatting(cpf);
 

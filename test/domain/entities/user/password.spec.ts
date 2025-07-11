@@ -12,5 +12,11 @@ describe("Password Entity", () => {
 			const weakPassword = "12345";
 			expect(() => new Password(weakPassword)).toThrow(new DomainError("Invalid password"));
 		});
+
+		it("Should return an instance of Password for a valid password", () => {
+			const validPassword = "StrongPass1!";
+			const passwordInstance = new Password(validPassword);
+			expect(passwordInstance).toBeInstanceOf(Password);
+		});
 	});
 });

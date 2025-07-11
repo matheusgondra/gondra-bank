@@ -12,7 +12,12 @@ export class CPF {
 	private validate(cpf: string): void {
 		const isValidLength = cpf.length === 11;
 		if (!isValidLength) {
-			throw new DomainError("Invalid CPF length");
+			throw new DomainError("Invalid CPF");
+		}
+
+		const isValidSequence = !/^(\d)\1{10}$/.test(cpf);
+		if (!isValidSequence) {
+			throw new DomainError("Invalid CPF");
 		}
 	}
 }

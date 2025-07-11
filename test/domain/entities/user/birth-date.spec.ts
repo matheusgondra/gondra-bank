@@ -3,6 +3,10 @@ import { DomainError } from "../../../../src/domain/errors/domain-error";
 
 describe("BirthDate Entity", () => {
 	const domainError = new DomainError("Invalid birth date");
+	const SECOND = 1000;
+	const MINUTE = SECOND * 60;
+	const HOUR = MINUTE * 60;
+	const DAY = HOUR * 24;
 
 	it("Should throw a DomainError if the date is invalid", () => {
 		const invalidDate = "invalid-date";
@@ -10,11 +14,6 @@ describe("BirthDate Entity", () => {
 	});
 
 	it("Should throw a DomainError if the date is in the future", () => {
-		const SECOND = 1000;
-		const MINUTE = SECOND * 60;
-		const HOUR = MINUTE * 60;
-		const DAY = HOUR * 24;
-
 		const futureDate = new Date(Date.now() + DAY);
 
 		expect(() => new BirthDate(futureDate)).toThrow(domainError);
@@ -25,5 +24,12 @@ describe("BirthDate Entity", () => {
 		const underEighteenYearsAgo = new Date(today.getFullYear() - 17, today.getMonth(), today.getDate());
 
 		expect(() => new BirthDate(underEighteenYearsAgo)).toThrow(domainError);
+	});
+
+	it("Should return a instance of BirthDate for a valid date", () => {
+		const validDate = "2000-11-23T00:00:00Z";
+		const instance = new BirthDate(validDate);
+
+		expect(instance).toBeInstanceOf(BirthDate);
 	});
 });

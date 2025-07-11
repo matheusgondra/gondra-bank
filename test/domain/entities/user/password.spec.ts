@@ -7,5 +7,10 @@ describe("Password Entity", () => {
 			const blankPassword = "";
 			expect(() => new Password(blankPassword)).toThrow(new DomainError("Invalid password"));
 		});
+
+		it("Should throw a DomainError if the password is not strong", () => {
+			const weakPassword = "12345";
+			expect(() => new Password(weakPassword)).toThrow(new DomainError("Invalid password"));
+		});
 	});
 });

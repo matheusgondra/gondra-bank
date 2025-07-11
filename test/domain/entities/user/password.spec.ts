@@ -2,6 +2,8 @@ import { Password } from "../../../../src/domain/entities/user/password";
 import { DomainError } from "../../../../src/domain/errors/domain-error";
 
 describe("Password Entity", () => {
+	const validPassword = "StrongPass1!";
+
 	describe("Constructor", () => {
 		it("Should throw a DomainError if the password is blank", () => {
 			const blankPassword = "";
@@ -14,9 +16,17 @@ describe("Password Entity", () => {
 		});
 
 		it("Should return an instance of Password for a valid password", () => {
-			const validPassword = "StrongPass1!";
 			const passwordInstance = new Password(validPassword);
+
 			expect(passwordInstance).toBeInstanceOf(Password);
+		});
+	});
+
+	describe("getValue", () => {
+		it("Should return the password value", () => {
+			const passwordInstance = new Password(validPassword);
+
+			expect((passwordInstance as any).getValue()).toBe(validPassword);
 		});
 	});
 });

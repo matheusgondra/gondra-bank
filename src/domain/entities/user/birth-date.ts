@@ -11,5 +11,10 @@ export class BirthDate {
 		if (isInvalidDate) {
 			throw new DomainError("Invalid birth date");
 		}
+
+		const today = new Date();
+		if (date > today) {
+			throw new DomainError("Invalid birth date");
+		}
 	}
 }

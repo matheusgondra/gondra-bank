@@ -1,0 +1,15 @@
+import { DomainError } from "../../errors/domain-error";
+
+export class BirthDate {
+	constructor(date: string | Date) {
+		const dateObject = new Date(date);
+		this.validate(dateObject);
+	}
+
+	private validate(date: Date): void {
+		const isInvalidDate = Number.isNaN(date.getTime());
+		if (isInvalidDate) {
+			throw new DomainError("Invalid birth date");
+		}
+	}
+}

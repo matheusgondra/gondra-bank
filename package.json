@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx src/server.ts",
     "test": "jest --runInBand --no-cache --silent --noStackTrace",
     "test:verbose": "jest --runInBand --no-cache --passWithNoTests",
     "test:unit": "pnpm test -c jest-unit.config.js",
@@ -30,5 +31,8 @@
     "ts-jest": "^29.4.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }

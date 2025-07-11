@@ -1,8 +1,15 @@
 import { DomainError } from "../../errors/domain-error";
 
 export class Email {
+	private readonly value: string;
+
 	constructor(email: string) {
 		this.validate(email);
+		this.value = email;
+	}
+
+	getValue(): string {
+		return this.value;
 	}
 
 	private validate(email: string): void {

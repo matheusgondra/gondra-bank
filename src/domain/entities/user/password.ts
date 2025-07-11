@@ -10,5 +10,10 @@ export class Password {
 		if (isBlank) {
 			throw new DomainError("Invalid password");
 		}
+
+		const isStrongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password);
+		if (!isStrongPassword) {
+			throw new DomainError("Invalid password");
+		}
 	}
 }

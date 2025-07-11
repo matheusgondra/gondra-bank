@@ -16,5 +16,10 @@ export class BirthDate {
 		if (date > today) {
 			throw new DomainError("Invalid birth date");
 		}
+
+		const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+		if (date > eighteenYearsAgo) {
+			throw new DomainError("Invalid birth date");
+		}
 	}
 }

@@ -2,9 +2,16 @@ import moment from "moment";
 import { DomainError } from "../../errors/domain-error";
 
 export class BirthDate {
+	private readonly date: Date;
+
 	constructor(date: string | Date) {
 		const dateObject = new Date(date);
 		this.validate(dateObject);
+		this.date = dateObject;
+	}
+
+	getValue(): Date {
+		return this.date;
 	}
 
 	private validate(date: Date): void {

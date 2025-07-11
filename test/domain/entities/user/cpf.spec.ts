@@ -11,4 +11,11 @@ describe("CPF Entity", () => {
 		const invalidValue = "00000000000";
 		expect(() => new CPF(invalidValue)).toThrow(new DomainError("Invalid CPF"));
 	});
+
+	it("Should create a valid instance", () => {
+		const validValue = "123.456.789-00";
+		const cpf = new CPF(validValue);
+
+		expect(cpf).toBeInstanceOf(CPF);
+	});
 });

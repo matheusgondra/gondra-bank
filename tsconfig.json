@@ -11,7 +11,8 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"moduleResolution": "node16",
-		"outDir": "dist"
+		"outDir": "dist",
+		"isolatedModules": true
 	},
 	"include": ["src", "test"],
 	"exclude": ["node_modules", "dist"]

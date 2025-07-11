@@ -20,7 +20,9 @@
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"trailingCommas": "none",
+			"lineWidth": 120
 		}
 	},
 	"assist": {

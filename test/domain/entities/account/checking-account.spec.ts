@@ -32,25 +32,27 @@ describe("CheckingAccount", () => {
 	const zeroAmount = 0;
 
 	describe("deposit", () => {
-		it("Should throw a DomainError if deposit amount is less than or equal to zero", () => {
+		it("Should throw a DomainError if deposit amount is less than or equal to zero", async () => {
 			const { sut } = makeSut();
 
-			expect(() => sut.deposit(zeroAmount)).toThrow(new DomainError("Invalid deposit amount"));
+			const promise = sut.deposit(zeroAmount);
+
+			await expect(promise).rejects.toThrow(new DomainError("Invalid deposit amount"));
 		});
 
-		it("Should deposit an amount on the account", () => {
+		it("Should deposit an amount on the account", async () => {
 			const { sut } = makeSut();
 
-			sut.deposit(amount);
+			await sut.deposit(amount);
 
 			expect(sut.getBalance().toNumber()).toBe(1100);
 		});
 
-		it("Should call TransactionRegister with correct value", () => {
+		it("Should call TransactionRegister with correct value", async () => {
 			const { sut, transactionRegisterStub } = makeSut();
 			const registerSpy = jest.spyOn(transactionRegisterStub, "register");
 
-			sut.deposit(amount);
+			await sut.deposit(amount);
 
 			expect(registerSpy).toHaveBeenCalledWith({
 				date: expect.any(Date),
@@ -63,16 +65,28 @@ describe("CheckingAccount", () => {
 	});
 
 	describe("withdraw", () => {
-		it("Should throw a DomainError if amount is less than or equal to zero", () => {
+		it("Should throw a DomainError if amount is less than or equal to zero", async () => {
 			const { sut } = makeSut();
 
-			expect(() => sut.withdraw(zeroAmount)).toThrow(new DomainError("Invalid withdraw amount"));
+			const promise = sut.withdraw(zeroAmount);
+
+			await expect(promise).rejects.toThrow(new DomainError("Invalid withdraw amount"));
 		});
 
-		it("Should throw a DomainError if balance is insufficient", () => {
+		it("Should throw a DomainError if balance is insufficient", async () => {
 			const { sut } = makeSut();
 
-			expect(() => sut.withdraw(2000)).toThrow(new DomainError("Insufficient balance"));
+			const promise = sut.withdraw(2000);
+
+			await expect(promise).rejects.toThrow(new DomainError("Insufficient balance"));
+		});
+
+		it("Should withdraw an amount from the account", async () => {
+			const { sut } = makeSut();
+
+			await sut.withdraw(amount);
+
+			expect(sut.getBalance().toNumber()).toBe(900);
 		});
 	});
 });

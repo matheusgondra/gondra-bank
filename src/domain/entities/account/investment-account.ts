@@ -15,5 +15,8 @@ export class InvestmentAccount extends Account {
 		if (isExternalTransfer) {
 			throw new DomainError("Invalid transfer");
 		}
+
+		const balance = await this.withdraw(amountDecimal.toNumber());
+		await destinationAccount.deposit(balance);
 	}
 }

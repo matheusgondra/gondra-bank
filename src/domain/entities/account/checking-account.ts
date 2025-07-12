@@ -5,7 +5,7 @@ export class CheckingAccount {
 	private readonly id: string;
 	private readonly number: number;
 	private readonly agency: number;
-	private readonly balance: Decimal;
+	private balance: Decimal;
 
 	constructor(id: string, number: number, agency: number, balance: number) {
 		this.id = id;
@@ -19,5 +19,11 @@ export class CheckingAccount {
 		if (decimalAmount.lessThanOrEqualTo(0)) {
 			throw new DomainError("Invalid deposit amount");
 		}
+
+		this.balance = this.balance.plus(decimalAmount);
+	}
+
+	getBalance(): Decimal {
+		return this.balance;
 	}
 }

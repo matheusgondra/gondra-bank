@@ -78,4 +78,12 @@ describe("LoginService", () => {
 
 		await expect(promise).rejects.toThrow(new InvalidCredentialsError());
 	});
+
+	it("Should return a token on success", async () => {
+		const { sut } = makeSut();
+
+		const token = await sut.login(email, password, cpf);
+
+		expect(token).toBe("any_token");
+	});
 });

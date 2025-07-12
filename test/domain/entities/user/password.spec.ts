@@ -29,4 +29,12 @@ describe("Password Entity", () => {
 			expect((passwordInstance as any).getValue()).toBe(validPassword);
 		});
 	});
+
+	describe("match", () => {
+		it("Should return true if the provided password matches", () => {
+			const passwordInstance = new Password(validPassword);
+
+			expect(passwordInstance.match(validPassword)).toBe(true);
+		});
+	});
 });

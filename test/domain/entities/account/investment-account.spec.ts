@@ -103,5 +103,13 @@ describe("InvestmentAccount", () => {
 
 			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer"));
 		});
+
+		it("Should throw a DomainError if transfer to other user account", async () => {
+			const { sut, accountStub } = makeSut();
+
+			const promise = sut.transfer(accountStub, amount);
+
+			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer"));
+		});
 	});
 });

@@ -8,15 +8,18 @@ jest.mock("jsonwebtoken", () => ({
 	sign: () => "any_token"
 }));
 
+const userMock = makeUserMock();
+
 interface SutType {
 	sut: LoginService;
 	userRepositoryStub: UserRepository;
+	userMock: User;
 }
 
 const makeUserRepositoryStub = (): UserRepository => {
 	class UserRepositoryStub implements UserRepository {
 		async loadByEmailOrCpf(email: string, cpf: string): Promise<User | null> {
-			return makeUserMock();
+			return userMock;
 		}
 	}
 
@@ -29,7 +32,8 @@ const makeSut = (): SutType => {
 
 	return {
 		sut,
-		userRepositoryStub
+		userRepositoryStub,
+		userMock
 	};
 };
 
@@ -54,5 +58,15 @@ describe("LoginService", () => {
 		const promise = sut.login(email, password, cpf);
 
 		await expect(promise).rejects.toThrow(new InvalidCredentialsError());
+	});
+
+	it("Should call User's match method with correct password", async () => {
+		const { sut, userMock } = makeSut();
+
+		const matchSpy = jest.spyOn(userMock.getPassword(), "match");
+
+		await sut.login(email, password, cpf);
+
+		expect(matchSpy).toHaveBeenCalledWith(password);
 	});
 });

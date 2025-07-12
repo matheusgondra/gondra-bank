@@ -12,7 +12,8 @@
 		"test:integration": "pnpm test -c jest-integration.config.js",
 		"test:staged": "pnpm test --findRelatedTests",
 		"prepare": "husky",
-		"format": "biome check --write src test"
+		"format": "biome check --write src test",
+		"seed": "tsx src/seed.ts"
 	},
 	"keywords": [],
 	"author": "",

@@ -2,6 +2,7 @@ import { CheckingAccount } from "@/domain/entities/account/checking-account";
 import type { TransactionRegister } from "@/domain/entities/account/transaction-register";
 import { TransactionType } from "@/domain/entities/account/transaction-type";
 import { BirthDate } from "@/domain/entities/user/birth-date";
+import { CPF } from "@/domain/entities/user/cpf";
 import { Email } from "@/domain/entities/user/email";
 import { Password } from "@/domain/entities/user/password";
 import { User } from "@/domain/entities/user/user";
@@ -25,17 +26,19 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
 	const transactionRegisterStub = makeTransactionRegister();
 	const userSutStub = new User(
-		"anyUserSutId",
+		1,
 		"anyName",
 		new Email("any@mail.com"),
 		new Password("StrongPassword@123"),
+		new CPF("12345678909"),
 		new BirthDate("2000-01-01")
 	);
 	const userStub = new User(
-		"anyUserId",
+		2,
 		"anyName",
 		new Email("other@mail.com"),
 		new Password("StrongPassword@123"),
+		new CPF("98765432100"),
 		new BirthDate("2000-01-01")
 	);
 	const sut = new CheckingAccount("anyId", 1, 1, 1000, transactionRegisterStub, userSutStub);

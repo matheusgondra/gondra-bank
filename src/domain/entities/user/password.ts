@@ -1,7 +1,7 @@
 import { DomainError } from "@domain/errors/domain-error";
 
 export class Password {
-	private readonly value: string;
+	protected value: string;
 
 	constructor(password: string) {
 		this.validate(password);

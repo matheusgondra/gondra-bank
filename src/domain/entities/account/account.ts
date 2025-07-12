@@ -18,14 +18,14 @@ export abstract class Account {
 		this.register = register;
 	}
 
-	deposit(amount: number) {
+	async deposit(amount: number): Promise<void> {
 		const decimalAmount = new Decimal(amount);
 		if (decimalAmount.lessThanOrEqualTo(0)) {
 			throw new DomainError("Invalid deposit amount");
 		}
 
 		this.balance = this.balance.plus(decimalAmount);
-		this.register.register({
+		await this.register.register({
 			date: new Date(),
 			amount,
 			type: TransactionType.DEPOSIT,
@@ -34,7 +34,7 @@ export abstract class Account {
 		});
 	}
 
-	withdraw(amount: number) {
+	async withdraw(amount: number): Promise<number> {
 		const decimalAmount = new Decimal(amount);
 		if (decimalAmount.lessThanOrEqualTo(0)) {
 			throw new DomainError("Invalid withdraw amount");
@@ -43,6 +43,11 @@ export abstract class Account {
 		if (this.balance.lessThan(decimalAmount)) {
 			throw new DomainError("Insufficient balance");
 		}
+
+		const newBalance = this.balance.minus(decimalAmount);
+		this.balance = newBalance;
+
+		return newBalance.toNumber();
 	}
 
 	getBalance(): Decimal {

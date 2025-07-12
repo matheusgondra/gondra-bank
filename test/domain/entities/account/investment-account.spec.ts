@@ -85,5 +85,13 @@ describe("InvestmentAccount", () => {
 
 			await expect(promise).rejects.toThrow(new DomainError("Insufficient balance"));
 		});
+
+		it("Should withdraw an amount from the account", async () => {
+			const { sut } = makeSut();
+
+			await sut.withdraw(amount);
+
+			expect(sut.getBalance().toNumber()).toBe(900);
+		});
 	});
 });

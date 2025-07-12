@@ -102,7 +102,7 @@ describe("CheckingAccount", () => {
 
 			const promise = sut.transfer(accountStub, zeroAmount);
 
-			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer amount"));
+			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer"));
 		});
 
 		it("Should transfer an amount to another account", async () => {

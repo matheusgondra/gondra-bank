@@ -40,7 +40,7 @@ export class CheckingAccount extends Account {
 				to: destinationAccount
 			});
 		} catch {
-			throw new DomainError("Invalid transfer amount");
+			throw new DomainError("Invalid transfer");
 		}
 	}
 }

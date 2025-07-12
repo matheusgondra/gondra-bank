@@ -87,12 +87,26 @@ describe("CheckingAccount", () => {
 		});
 
 		it("Should transfer an amount to another account", async () => {
+			const { sut } = makeSut();
+
+			await sut.transfer(sut, amount);
+
+			expect(sut.getBalance().toNumber()).toBe(1000);
+		});
+
+		it("Should charge a 0.5% fee for external transfers", async () => {
 			const { sut, accountStub } = makeSut();
+			const externalTransferAmount = 500;
 
-			await sut.transfer(accountStub, amount);
+			const sutBalanceBeforeTransfer = sut.getBalance().toNumber();
 
-			expect(sut.getBalance().toNumber()).toBe(900);
-			expect(accountStub.getBalance().toNumber()).toBe(1100);
+			await sut.transfer(accountStub, externalTransferAmount);
+
+			const fee = externalTransferAmount * 0.005;
+			const expectedBalance = sutBalanceBeforeTransfer - (externalTransferAmount + fee);
+
+			expect(sut.getBalance().toNumber()).toBe(expectedBalance);
+			expect(accountStub.getBalance().toNumber()).toBe(1500);
 		});
 	});
 });

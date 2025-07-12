@@ -1,7 +1,6 @@
 import Decimal from "decimal.js";
 import { DomainError } from "@/domain/errors/domain-error";
 import type { TransactionRegister } from "./transaction-register";
-import { TransactionType } from "./transaction-type";
 
 export abstract class Account {
 	private readonly id: string;
@@ -25,13 +24,6 @@ export abstract class Account {
 		}
 
 		this.balance = this.balance.plus(decimalAmount);
-		await this.register.register({
-			date: new Date(),
-			amount,
-			type: TransactionType.DEPOSIT,
-			from: this,
-			to: this
-		});
 	}
 
 	async withdraw(amount: number): Promise<number> {

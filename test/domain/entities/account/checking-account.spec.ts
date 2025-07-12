@@ -85,5 +85,14 @@ describe("CheckingAccount", () => {
 
 			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer amount"));
 		});
+
+		it("Should transfer an amount to another account", async () => {
+			const { sut, accountStub } = makeSut();
+
+			await sut.transfer(accountStub, amount);
+
+			expect(sut.getBalance().toNumber()).toBe(900);
+			expect(accountStub.getBalance().toNumber()).toBe(1100);
+		});
 	});
 });

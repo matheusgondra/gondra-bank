@@ -69,4 +69,13 @@ describe("LoginService", () => {
 
 		expect(matchSpy).toHaveBeenCalledWith(password);
 	});
+
+	it("Should throw InvalidCredentialsError if password is invalid", async () => {
+		const { sut, userMock } = makeSut();
+		jest.spyOn(userMock.getPassword(), "match").mockReturnValueOnce(false);
+
+		const promise = sut.login(email, password, cpf);
+
+		await expect(promise).rejects.toThrow(new InvalidCredentialsError());
+	});
 });

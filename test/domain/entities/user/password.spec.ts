@@ -36,5 +36,12 @@ describe("Password Entity", () => {
 
 			expect(passwordInstance.match(validPassword)).toBe(true);
 		});
+
+		it("Should return false if the provided password does not match", () => {
+			const passwordInstance = new Password(validPassword);
+			const wrongPassword = "WrongPass1!";
+
+			expect(passwordInstance.match(wrongPassword)).toBe(false);
+		});
 	});
 });

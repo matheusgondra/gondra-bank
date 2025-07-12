@@ -1,5 +1,6 @@
 import { makeUserMock } from "@test/helpers/user-mock";
 import type { User } from "@/domain/entities/user/user";
+import { InvalidCredentialsError } from "@/domain/errors/invalid-credentials";
 import type { UserRepository } from "@/interfaces/user-repository";
 import { LoginService } from "@/services/login-service";
 
@@ -44,5 +45,14 @@ describe("LoginService", () => {
 		await sut.login(email, password, cpf);
 
 		expect(loadByEmailOrCpfSpy).toHaveBeenCalledWith(email, cpf);
+	});
+
+	it("Should throw InvalidCredentialsError if user is not found", async () => {
+		const { sut, userRepositoryStub } = makeSut();
+		jest.spyOn(userRepositoryStub, "loadByEmailOrCpf").mockResolvedValueOnce(null);
+
+		const promise = sut.login(email, password, cpf);
+
+		await expect(promise).rejects.toThrow(new InvalidCredentialsError());
 	});
 });

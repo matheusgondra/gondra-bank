@@ -39,7 +39,7 @@ export abstract class Account {
 		const newBalance = this.balance.minus(decimalAmount);
 		this.balance = newBalance;
 
-		return newBalance.toNumber();
+		return decimalAmount.toNumber();
 	}
 
 	getBalance(): Decimal {

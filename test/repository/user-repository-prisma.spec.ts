@@ -1,8 +1,10 @@
 import type { PrismaClient } from "generated/prisma";
+import { User } from "@/domain/entities/user/user";
 import { UserRepositoryPrisma } from "@/repository/user-repository-prisma";
 
 interface SutType {
 	sut: UserRepositoryPrisma;
+	dbStub: PrismaClient;
 }
 
 const userMock = {
@@ -29,19 +31,30 @@ const makeSut = (): SutType => {
 	const sut = new UserRepositoryPrisma(dbStub);
 
 	return {
-		sut
+		sut,
+		dbStub
 	};
 };
 
 describe("UserRepositoryPrisma", () => {
+	const email = "any@mail.com";
+	const cpf = "12345678901";
+
 	it("Should return a user when found by email or CPF", async () => {
 		const { sut } = makeSut();
-
-		const email = "any@mail.com";
-		const cpf = "12345678901";
 
 		const user = await sut.loadByEmailOrCpf(email, cpf);
 
 		expect(user).toBeDefined();
+		expect(user).toBeInstanceOf(User);
+	});
+
+	it("Should return null when no user is found", async () => {
+		const { sut, dbStub } = makeSut();
+		jest.spyOn(dbStub.user, "findFirst").mockResolvedValueOnce(null);
+
+		const user = await sut.loadByEmailOrCpf(email, cpf);
+
+		expect(user).toBeNull();
 	});
 });

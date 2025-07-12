@@ -48,6 +48,7 @@ const makeSut = (): SutTypes => {
 };
 
 describe("InvestmentAccount", () => {
+	const amount = 100;
 	const zeroAmount = 0;
 
 	describe("deposit", () => {
@@ -57,6 +58,14 @@ describe("InvestmentAccount", () => {
 			const promise = sut.deposit(zeroAmount);
 
 			await expect(promise).rejects.toThrow(new DomainError("Invalid deposit amount"));
+		});
+
+		it("Should deposit an amount on the account", async () => {
+			const { sut } = makeSut();
+
+			await sut.deposit(amount);
+
+			expect(sut.getBalance().toNumber()).toBe(1100);
 		});
 	});
 });

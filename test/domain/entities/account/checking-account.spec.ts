@@ -68,5 +68,11 @@ describe("CheckingAccount", () => {
 
 			expect(() => sut.withdraw(zeroAmount)).toThrow(new DomainError("Invalid withdraw amount"));
 		});
+
+		it("Should throw a DomainError if balance is insufficient", () => {
+			const { sut } = makeSut();
+
+			expect(() => sut.withdraw(2000)).toThrow(new DomainError("Insufficient balance"));
+		});
 	});
 });

@@ -11,6 +11,7 @@
 		"test:unit": "pnpm test -c jest-unit.config.js --watchAll",
 		"test:integration": "pnpm test -c jest-integration.config.js",
 		"test:staged": "pnpm test --findRelatedTests",
+		"test:cov": "jest --coverage ",
 		"prepare": "husky",
 		"format": "biome check --write src test",
 		"seed": "tsx src/seed.ts"

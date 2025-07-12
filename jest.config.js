@@ -16,5 +16,9 @@ module.exports = {
 		"^@/(.*)$": "<rootDir>/src/$1",
 		"^@domain/(.*)$": "<rootDir>/src/domain/$1",
 		"^@test/(.*)$": "<rootDir>/test/$1"
-	}
+	},
+	coverageDirectory: "<rootDir>/coverage",
+	collectCoverageFrom: [
+		"src/**/*.{ts,js}"
+	]
 };

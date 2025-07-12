@@ -1,5 +1,5 @@
 import { Decimal } from "decimal.js";
-import { DomainError } from "../../errors/domain-error";
+import { DomainError } from "@/domain/errors/domain-error";
 
 export class CheckingAccount {
 	private readonly id: string;

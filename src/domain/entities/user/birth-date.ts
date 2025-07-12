@@ -1,5 +1,5 @@
+import { DomainError } from "@domain/errors/domain-error";
 import moment from "moment";
-import { DomainError } from "../../errors/domain-error";
 
 export class BirthDate {
 	private readonly date: Date;

@@ -1,5 +1,5 @@
-import { BirthDate } from "../../../../src/domain/entities/user/birth-date";
-import { DomainError } from "../../../../src/domain/errors/domain-error";
+import { BirthDate } from "@domain/entities/user/birth-date";
+import { DomainError } from "@domain/errors/domain-error";
 
 describe("BirthDate Entity", () => {
 	const validDate = "2000-11-23T00:00:00Z";

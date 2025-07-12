@@ -1,5 +1,5 @@
-import { Email } from "../../../../src/domain/entities/user/email";
-import { DomainError } from "../../../../src/domain/errors/domain-error";
+import { Email } from "@domain/entities/user/email";
+import { DomainError } from "@domain/errors/domain-error";
 
 describe("Email Entity", () => {
 	const validValue = "test@example.com";

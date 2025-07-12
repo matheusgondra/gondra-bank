@@ -11,5 +11,10 @@ module.exports = {
 			}
 		]
 	},
-	testMatch: ["<rootDir>/test/**/*.(spec|test).ts"]
+	testMatch: ["<rootDir>/test/**/*.(spec|test).ts"],
+	moduleNameMapper: {
+		"^@/(.*)$": "<rootDir>/src/$1",
+		"^@domain/(.*)$": "<rootDir>/src/domain/$1",
+		"^@test/(.*)$": "<rootDir>/test/$1"
+	}
 };

@@ -1,5 +1,5 @@
-import { CPF } from "../../../../src/domain/entities/user/cpf";
-import { DomainError } from "../../../../src/domain/errors/domain-error";
+import { CPF } from "@domain/entities/user/cpf";
+import { DomainError } from "@domain/errors/domain-error";
 
 describe("CPF Entity", () => {
 	const validValue = "123.456.789-00";

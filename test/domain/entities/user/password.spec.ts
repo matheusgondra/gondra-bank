@@ -1,5 +1,5 @@
-import { Password } from "../../../../src/domain/entities/user/password";
-import { DomainError } from "../../../../src/domain/errors/domain-error";
+import { Password } from "@domain/entities/user/password";
+import { DomainError } from "@domain/errors/domain-error";
 
 describe("Password Entity", () => {
 	const validPassword = "StrongPass1!";

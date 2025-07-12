@@ -1,4 +1,4 @@
-import { DomainError } from "../../errors/domain-error";
+import { DomainError } from "@domain/errors/domain-error";
 
 export class CPF {
 	private readonly value: string;

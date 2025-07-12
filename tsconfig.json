@@ -12,7 +12,13 @@
 		"skipLibCheck": true,
 		"moduleResolution": "node16",
 		"outDir": "dist",
-		"isolatedModules": true
+		"isolatedModules": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"],
+			"@domain/*": ["src/domain/*"],
+			"@test/*": ["test/*"]
+		}
 	},
 	"include": ["src", "test"],
 	"exclude": ["node_modules", "dist"]

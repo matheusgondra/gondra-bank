@@ -1,5 +1,5 @@
-import { CheckingAccount } from "../../../../src/domain/entities/account/checking-account";
-import { DomainError } from "../../../../src/domain/errors/domain-error";
+import { CheckingAccount } from "@/domain/entities/account/checking-account";
+import { DomainError } from "@/domain/errors/domain-error";
 
 const makeSut = (): CheckingAccount => {
 	return new CheckingAccount("anyId", 1, 1, 1000);

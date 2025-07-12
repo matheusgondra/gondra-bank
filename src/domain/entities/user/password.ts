@@ -13,6 +13,10 @@ export class Password {
 		return this.value;
 	}
 
+	match(password: string): boolean {
+		return this.value === password;
+	}
+
 	private validate(password: string): void {
 		const isBlank = !password || password.trim().length === 0;
 		if (isBlank) {

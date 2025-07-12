@@ -1,5 +1,6 @@
 import { CheckingAccount } from "@/domain/entities/account/checking-account";
 import type { TransactionRegister } from "@/domain/entities/account/transaction-register";
+import { TransactionType } from "@/domain/entities/account/transaction-type";
 import { DomainError } from "@/domain/errors/domain-error";
 
 const makeTransactionRegister = (): TransactionRegister => {
@@ -107,6 +108,31 @@ describe("CheckingAccount", () => {
 
 			expect(sut.getBalance().toNumber()).toBe(expectedBalance);
 			expect(accountStub.getBalance().toNumber()).toBe(1500);
+		});
+
+		it("Should register the transfer", async () => {
+			const { sut, accountStub, transactionRegisterStub } = makeSut();
+			const registerSpy = jest.spyOn(transactionRegisterStub, "register");
+
+			await sut.transfer(accountStub, amount);
+
+			expect(registerSpy).toHaveBeenCalledWith({
+				date: expect.any(Date),
+				amount,
+				type: TransactionType.TRANSFER,
+				from: sut,
+				to: accountStub
+			});
+
+			await sut.transfer(sut, amount);
+
+			expect(registerSpy).toHaveBeenCalledWith({
+				date: expect.any(Date),
+				amount,
+				type: TransactionType.TRANSFER,
+				from: sut,
+				to: sut
+			});
 		});
 	});
 });

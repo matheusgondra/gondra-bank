@@ -29,13 +29,13 @@ const makeSut = (): SutTypes => {
 
 describe("CheckingAccount", () => {
 	const amount = 100;
+	const zeroAmount = 0;
 
 	describe("deposit", () => {
 		it("Should throw a DomainError if deposit amount is less than or equal to zero", () => {
 			const { sut } = makeSut();
-			const amount = 0;
 
-			expect(() => sut.deposit(amount)).toThrow(new DomainError("Invalid deposit amount"));
+			expect(() => sut.deposit(zeroAmount)).toThrow(new DomainError("Invalid deposit amount"));
 		});
 
 		it("Should deposit an amount on the account", () => {
@@ -59,6 +59,14 @@ describe("CheckingAccount", () => {
 				from: sut,
 				to: sut
 			});
+		});
+	});
+
+	describe("withdraw", () => {
+		it("Should throw a DomainError if amount is less than or equal to zero", () => {
+			const { sut } = makeSut();
+
+			expect(() => sut.withdraw(zeroAmount)).toThrow(new DomainError("Invalid withdraw amount"));
 		});
 	});
 });

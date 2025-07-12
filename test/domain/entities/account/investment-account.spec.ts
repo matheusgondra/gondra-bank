@@ -1,3 +1,4 @@
+import { CheckingAccount } from "@/domain/entities/account/checking-account";
 import { InvestmentAccount } from "@/domain/entities/account/investment-account";
 import type { TransactionRegister } from "@/domain/entities/account/transaction-register";
 import { BirthDate } from "@/domain/entities/user/birth-date";
@@ -19,6 +20,7 @@ interface SutTypes {
 	sut: InvestmentAccount;
 	transactionRegisterStub: TransactionRegister;
 	accountStub: InvestmentAccount;
+	checkingAccountStub: CheckingAccount;
 }
 
 const makeSut = (): SutTypes => {
@@ -39,11 +41,13 @@ const makeSut = (): SutTypes => {
 	);
 	const sut = new InvestmentAccount("anyId", 1, 1, 1000, transactionRegisterStub, userSutStub);
 	const accountStub = new InvestmentAccount("anyId2", 2, 1, 1000, transactionRegisterStub, userStub);
+	const checkingAccountStub = new CheckingAccount("anyId3", 3, 1, 1000, transactionRegisterStub, userSutStub);
 
 	return {
 		sut,
 		transactionRegisterStub,
-		accountStub
+		accountStub,
+		checkingAccountStub
 	};
 };
 
@@ -110,6 +114,15 @@ describe("InvestmentAccount", () => {
 			const promise = sut.transfer(accountStub, amount);
 
 			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer"));
+		});
+
+		it("Should transfer to the checking account", async () => {
+			const { sut, checkingAccountStub } = makeSut();
+
+			await sut.transfer(checkingAccountStub, amount);
+
+			expect(checkingAccountStub.getBalance().toNumber()).toBe(1100);
+			expect(sut.getBalance().toNumber()).toBe(900);
 		});
 	});
 });

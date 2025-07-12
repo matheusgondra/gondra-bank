@@ -68,4 +68,14 @@ describe("InvestmentAccount", () => {
 			expect(sut.getBalance().toNumber()).toBe(1100);
 		});
 	});
+
+	describe("withdraw", () => {
+		it("Should throw a DomainError if amount is less than or equal to zero", async () => {
+			const { sut } = makeSut();
+
+			const promise = sut.withdraw(zeroAmount);
+
+			await expect(promise).rejects.toThrow(new DomainError("Invalid withdraw amount"));
+		});
+	});
 });

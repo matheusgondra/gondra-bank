@@ -1,20 +1,30 @@
 import Decimal from "decimal.js";
 import { DomainError } from "@/domain/errors/domain-error";
+import type { User } from "../user/user";
 import type { TransactionRegister } from "./transaction-register";
 
 export abstract class Account {
 	private readonly id: string;
 	private readonly number: number;
 	private readonly agency: number;
+	private readonly holder: User;
 	protected balance: Decimal;
 	protected register: TransactionRegister;
 
-	constructor(id: string, number: number, agency: number, balance: number, register: TransactionRegister) {
+	constructor(
+		id: string,
+		number: number,
+		agency: number,
+		balance: number,
+		register: TransactionRegister,
+		holder: User
+	) {
 		this.id = id;
 		this.number = number;
 		this.agency = agency;
 		this.balance = new Decimal(balance);
 		this.register = register;
+		this.holder = holder;
 	}
 
 	async deposit(amount: number): Promise<void> {
@@ -56,5 +66,9 @@ export abstract class Account {
 
 	getBalance(): Decimal {
 		return this.balance;
+	}
+
+	getHolder(): User {
+		return this.holder;
 	}
 }

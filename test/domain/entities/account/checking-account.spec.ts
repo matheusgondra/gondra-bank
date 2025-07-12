@@ -1,6 +1,10 @@
 import { CheckingAccount } from "@/domain/entities/account/checking-account";
 import type { TransactionRegister } from "@/domain/entities/account/transaction-register";
 import { TransactionType } from "@/domain/entities/account/transaction-type";
+import { BirthDate } from "@/domain/entities/user/birth-date";
+import { Email } from "@/domain/entities/user/email";
+import { Password } from "@/domain/entities/user/password";
+import { User } from "@/domain/entities/user/user";
 import { DomainError } from "@/domain/errors/domain-error";
 
 const makeTransactionRegister = (): TransactionRegister => {
@@ -20,8 +24,22 @@ interface SutTypes {
 
 const makeSut = (): SutTypes => {
 	const transactionRegisterStub = makeTransactionRegister();
-	const sut = new CheckingAccount("anyId", 1, 1, 1000, transactionRegisterStub);
-	const accountStub = new CheckingAccount("anyId2", 2, 1, 1000, transactionRegisterStub);
+	const userSutStub = new User(
+		"anyUserSutId",
+		"anyName",
+		new Email("any@mail.com"),
+		new Password("StrongPassword@123"),
+		new BirthDate("2000-01-01")
+	);
+	const userStub = new User(
+		"anyUserId",
+		"anyName",
+		new Email("other@mail.com"),
+		new Password("StrongPassword@123"),
+		new BirthDate("2000-01-01")
+	);
+	const sut = new CheckingAccount("anyId", 1, 1, 1000, transactionRegisterStub, userSutStub);
+	const accountStub = new CheckingAccount("anyId2", 2, 1, 1000, transactionRegisterStub, userStub);
 
 	return {
 		sut,

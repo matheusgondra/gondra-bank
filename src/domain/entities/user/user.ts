@@ -10,4 +10,8 @@ export class User {
 		private readonly password: Password,
 		private readonly birthDate: BirthDate
 	) {}
+
+	getId(): string {
+		return this.id;
+	}
 }

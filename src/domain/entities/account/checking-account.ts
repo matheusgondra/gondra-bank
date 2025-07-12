@@ -10,11 +10,7 @@ export class CheckingAccount extends Account {
 		try {
 			const amountDecimal = new Decimal(amount);
 
-			const sameId = this.getId() === destinationAccount.getId();
-			const sameNumber = this.getNumber() === destinationAccount.getNumber();
-			const sameAgency = this.getAgency() === destinationAccount.getAgency();
-
-			const isInternalTransfer = sameId || (sameNumber && sameAgency);
+			const isInternalTransfer = this.getHolder().getId() === destinationAccount.getHolder().getId();
 			if (isInternalTransfer) {
 				const balance = await this.withdraw(amountDecimal.toNumber());
 				await destinationAccount.deposit(balance);

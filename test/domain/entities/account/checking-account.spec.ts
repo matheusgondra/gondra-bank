@@ -13,5 +13,14 @@ describe("CheckingAccount", () => {
 
 			expect(() => sut.deposit(amount)).toThrow(new DomainError("Invalid deposit amount"));
 		});
+
+		it("Should deposit an amount on the account", () => {
+			const sut = makeSut();
+			const amount = 100;
+
+			sut.deposit(amount);
+
+			expect(sut.getBalance().toNumber()).toBe(1100);
+		});
 	});
 });

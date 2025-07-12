@@ -39,6 +39,10 @@ export abstract class Account {
 		if (decimalAmount.lessThanOrEqualTo(0)) {
 			throw new DomainError("Invalid withdraw amount");
 		}
+
+		if (this.balance.lessThan(decimalAmount)) {
+			throw new DomainError("Insufficient balance");
+		}
 	}
 
 	getBalance(): Decimal {

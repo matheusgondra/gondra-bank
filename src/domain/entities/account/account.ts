@@ -42,6 +42,18 @@ export abstract class Account {
 		return decimalAmount.toNumber();
 	}
 
+	getId(): string {
+		return this.id;
+	}
+
+	getNumber(): number {
+		return this.number;
+	}
+
+	getAgency(): number {
+		return this.agency;
+	}
+
 	getBalance(): Decimal {
 		return this.balance;
 	}

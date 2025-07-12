@@ -1,7 +1,6 @@
-import { ZodError } from "zod";
 import { LoginController } from "@/controllers/login-controller";
 import type { Login } from "@/domain/usecases/login";
-import { badRequest, serverError } from "@/helpers/http";
+import { ok, serverError } from "@/helpers/http";
 import type { HttpRequest } from "@/interfaces/http";
 
 interface SutType {
@@ -29,6 +28,14 @@ const makeSut = (): SutType => {
 };
 
 describe("LoginController", () => {
+	const httpRequest: HttpRequest = {
+		body: {
+			email: "any@email.com",
+			password: "StrongPassword@123",
+			cpf: "12345678911"
+		}
+	};
+
 	it("Should return 400 if body is invalid", async () => {
 		const httpRequest: HttpRequest = {
 			body: {
@@ -44,13 +51,6 @@ describe("LoginController", () => {
 	});
 
 	it("Should return 500 if an unexpected error occurs", async () => {
-		const httpRequest: HttpRequest = {
-			body: {
-				email: "any@email.com",
-				password: "StrongPassword@123",
-				cpf: "12345678911"
-			}
-		};
 		const { sut, loginStub } = makeSut();
 		jest.spyOn(loginStub, "login").mockImplementationOnce(() => {
 			throw new Error("Unexpected error");
@@ -58,5 +58,13 @@ describe("LoginController", () => {
 
 		const response = await sut.handle(httpRequest);
 		expect(response).toEqual(serverError(new Error("Unexpected error")));
+	});
+
+	it("Should return 200 with access token on success", async () => {
+		const { sut } = makeSut();
+
+		const response = await sut.handle(httpRequest);
+
+		expect(response).toEqual(ok({ accessToken: "valid_token" }));
 	});
 });

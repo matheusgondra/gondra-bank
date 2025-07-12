@@ -77,5 +77,13 @@ describe("InvestmentAccount", () => {
 
 			await expect(promise).rejects.toThrow(new DomainError("Invalid withdraw amount"));
 		});
+
+		it("Should throw a DomainError if balance is insufficient", async () => {
+			const { sut } = makeSut();
+
+			const promise = sut.withdraw(2000);
+
+			await expect(promise).rejects.toThrow(new DomainError("Insufficient balance"));
+		});
 	});
 });

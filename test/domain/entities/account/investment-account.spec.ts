@@ -94,4 +94,14 @@ describe("InvestmentAccount", () => {
 			expect(sut.getBalance().toNumber()).toBe(900);
 		});
 	});
+
+	describe("transfer", () => {
+		it("Should throw a DomainError if amount is less than or equal to zero", async () => {
+			const { sut } = makeSut();
+
+			const promise = sut.transfer(sut, zeroAmount);
+
+			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer"));
+		});
+	});
 });

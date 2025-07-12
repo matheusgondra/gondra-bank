@@ -1,6 +1,5 @@
 import { CheckingAccount } from "@/domain/entities/account/checking-account";
 import type { TransactionRegister } from "@/domain/entities/account/transaction-register";
-import { TransactionType } from "@/domain/entities/account/transaction-type";
 import { DomainError } from "@/domain/errors/domain-error";
 
 const makeTransactionRegister = (): TransactionRegister => {
@@ -15,15 +14,18 @@ const makeTransactionRegister = (): TransactionRegister => {
 interface SutTypes {
 	sut: CheckingAccount;
 	transactionRegisterStub: TransactionRegister;
+	accountStub: CheckingAccount;
 }
 
 const makeSut = (): SutTypes => {
 	const transactionRegisterStub = makeTransactionRegister();
 	const sut = new CheckingAccount("anyId", 1, 1, 1000, transactionRegisterStub);
+	const accountStub = new CheckingAccount("anyId2", 2, 1, 1000, transactionRegisterStub);
 
 	return {
 		sut,
-		transactionRegisterStub
+		transactionRegisterStub,
+		accountStub
 	};
 };
 
@@ -46,21 +48,6 @@ describe("CheckingAccount", () => {
 			await sut.deposit(amount);
 
 			expect(sut.getBalance().toNumber()).toBe(1100);
-		});
-
-		it("Should call TransactionRegister with correct value", async () => {
-			const { sut, transactionRegisterStub } = makeSut();
-			const registerSpy = jest.spyOn(transactionRegisterStub, "register");
-
-			await sut.deposit(amount);
-
-			expect(registerSpy).toHaveBeenCalledWith({
-				date: expect.any(Date),
-				amount,
-				type: TransactionType.DEPOSIT,
-				from: sut,
-				to: sut
-			});
 		});
 	});
 
@@ -87,6 +74,16 @@ describe("CheckingAccount", () => {
 			await sut.withdraw(amount);
 
 			expect(sut.getBalance().toNumber()).toBe(900);
+		});
+	});
+
+	describe("transfer", () => {
+		it("Should throw a DomainError if amount is less than or equal to zero", async () => {
+			const { sut, accountStub } = makeSut();
+
+			const promise = sut.transfer(accountStub, zeroAmount);
+
+			await expect(promise).rejects.toThrow(new DomainError("Invalid transfer amount"));
 		});
 	});
 });

@@ -12,8 +12,8 @@ interface SutType {
 
 const makeUserRepositoryStub = (): UserRepository => {
 	class UserRepositoryStub implements UserRepository {
-		async loadByEmailOrCpf(email: string, cpf: string): Promise<User | null> {
-			return null; // Stub implementation
+		async loadByEmailOrCpf(_email: string, _cpf: string): Promise<User | null> {
+			return null;
 		}
 
 		async loadById(id: number): Promise<User | null> {
@@ -62,6 +62,19 @@ describe("AuthMiddleware", () => {
 
 		const httpRequest = {
 			authorization: "Bearer invalid_token"
+		};
+
+		const httpResponse = await sut.handle(httpRequest);
+
+		expect(httpResponse).toEqual(unauthorized(new InvalidCredentialsError()));
+	});
+
+	it("Should return 401 if user does not exist", async () => {
+		const { sut, userRepositoryStub } = makeSut();
+		jest.spyOn(userRepositoryStub, "loadById").mockResolvedValueOnce(null);
+
+		const httpRequest = {
+			authorization: "Bearer valid_token"
 		};
 
 		const httpResponse = await sut.handle(httpRequest);

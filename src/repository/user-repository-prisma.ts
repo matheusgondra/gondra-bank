@@ -9,7 +9,7 @@ export class UserRepositoryPrisma implements UserRepository {
 	async loadByEmailOrCpf(email: string, cpf: string): Promise<User | null> {
 		const user = await this.db.user.findFirst({
 			where: {
-				OR: [{ email: email, cpf: cpf }]
+				OR: [{ email }, { cpf }]
 			}
 		});
 

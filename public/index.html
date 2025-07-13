@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 300px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+
+    <form>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        const $form = document.querySelector("form");
+        $form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const email = document.querySelector("#email").value;
+            const password = document.querySelector("#password").value;
+            const body = JSON.stringify({ email, password });
+            console.log({ body });
+
+            fetch("/api/login", {
+                method: "POST",
+                body,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(res => {
+                    console.log({ res });
+                    if (res.ok) {
+                        return res.json();
+                    }
+
+                    return Promise.reject(res);
+                })
+                .then(res => {
+                    console.log({ resFinal: res })
+                    localStorage.setItem("accessToken", res.accessToken);
+                    window.location.href = "/dashboard";
+                })
+        });
+    </script>
+</body>
+</html>

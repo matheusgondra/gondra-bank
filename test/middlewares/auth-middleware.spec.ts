@@ -1,9 +1,14 @@
 import { makeUserMock } from "@test/helpers/user-mock";
+import jwt from "jsonwebtoken";
 import type { User } from "@/domain/entities/user/user";
 import { InvalidCredentialsError } from "@/domain/errors/invalid-credentials";
-import { unauthorized } from "@/helpers/http";
+import { ok, unauthorized } from "@/helpers/http";
 import type { UserRepository } from "@/interfaces/user-repository";
 import { AuthMiddleware } from "@/middlewares/auth-middleware";
+
+jest.mock("jsonwebtoken", () => ({
+	verify: jest.fn().mockReturnValue({ sub: "1" })
+}));
 
 interface SutType {
 	sut: AuthMiddleware;
@@ -16,7 +21,7 @@ const makeUserRepositoryStub = (): UserRepository => {
 			return null;
 		}
 
-		async loadById(id: number): Promise<User | null> {
+		async loadById(_id: number): Promise<User | null> {
 			return makeUserMock();
 		}
 	}
@@ -59,6 +64,9 @@ describe("AuthMiddleware", () => {
 
 	it("Should return 401 if token is invalid", async () => {
 		const { sut } = makeSut();
+		jest.spyOn(jwt, "verify").mockImplementationOnce(() => {
+			throw new Error();
+		});
 
 		const httpRequest = {
 			authorization: "Bearer invalid_token"
@@ -80,5 +88,17 @@ describe("AuthMiddleware", () => {
 		const httpResponse = await sut.handle(httpRequest);
 
 		expect(httpResponse).toEqual(unauthorized(new InvalidCredentialsError()));
+	});
+
+	it("Should return userId if token is valid and user exists", async () => {
+		const { sut } = makeSut();
+
+		const httpRequest = {
+			authorization: "Bearer valid_token"
+		};
+
+		const httpResponse = await sut.handle(httpRequest);
+
+		expect(httpResponse).toEqual(ok({ userId: 1 }));
 	});
 });

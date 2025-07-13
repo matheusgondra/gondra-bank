@@ -21,7 +21,7 @@ export class LoginController implements Controller {
 				cpfValue = "12345678911";
 			}
 
-			const accessToken = await this.useCase.login(emailValue, cpfValue, password);
+			const accessToken = await this.useCase.login(emailValue, password, cpfValue);
 			return ok({ accessToken });
 		} catch (error) {
 			if (error instanceof z.ZodError) {

@@ -2,9 +2,11 @@ import { compareSync, hashSync } from "bcryptjs";
 import { Password } from "./password";
 
 export class PasswordHash extends Password {
-	constructor(password: string) {
+	constructor(password: string, skipHash: boolean = false) {
 		super(password);
-		this.value = hashSync(password, process.env.SALT);
+		if (!skipHash) {
+			this.value = hashSync(password, Number(process.env.SALT));
+		}
 	}
 
 	match(password: string): boolean {

@@ -44,4 +44,13 @@ describe("LoadUserController", () => {
 
 		expect(response).toEqual(badRequest(new UserNotFoundError()));
 	});
+
+	it("Should call LoadUser with correct id", async () => {
+		const { sut, loadUserStub } = makeSut();
+		const loadSpy = jest.spyOn(loadUserStub, "load");
+
+		await sut.handle(httpRequest);
+
+		expect(loadSpy).toHaveBeenCalledWith(httpRequest.userId);
+	});
 });

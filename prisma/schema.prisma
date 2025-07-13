@@ -24,7 +24,8 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  checkingAccount CheckingAccount?
+  checkingAccount   CheckingAccount?
+  investmentAccount InvestmentAccount?
 
   @@map("users")
 }
@@ -41,4 +42,18 @@ model CheckingAccount {
   holder User @relation(fields: [holderId], references: [id])
 
   @@map("checking_accounts")
+}
+
+model InvestmentAccount {
+  id        String   @id @default(uuid())
+  number    Int      @unique
+  agency    Int
+  holderId  Int      @unique @map("holder_id")
+  balance   Decimal  @default(0.00)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  holder User @relation(fields: [holderId], references: [id])
+
+  @@map("investment_accounts")
 }

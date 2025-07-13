@@ -44,4 +44,16 @@ describe("AuthMiddleware", () => {
 
 		expect(httpResponse).toEqual(unauthorized(new InvalidCredentialsError()));
 	});
+
+	it("Should return 401 if authorization header is not a Bearer token", async () => {
+		const { sut } = makeSut();
+
+		const httpRequest = {
+			authorization: "InvalidToken"
+		};
+
+		const httpResponse = await sut.handle(httpRequest);
+
+		expect(httpResponse).toEqual(unauthorized(new InvalidCredentialsError()));
+	});
 });

@@ -1,0 +1,51 @@
+{
+	"name": "gondra-bank",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "tsx --env-file .env --watch src/main/server.ts",
+		"build": "rimraf dist && tsc && tsc-alias",
+		"test": "jest --runInBand --no-cache --silent --noStackTrace --passWithNoTests",
+		"test:verbose": "jest --runInBand --no-cache --passWithNoTests",
+		"test:unit": "pnpm test -c jest-unit.config.js --watchAll",
+		"test:integration": "pnpm test -c jest-integration.config.js",
+		"test:staged": "pnpm test --findRelatedTests",
+		"test:cov": "jest --coverage ",
+		"prepare": "husky",
+		"format": "biome check --write src test",
+		"seed": "tsx src/seed.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.13.1",
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.1",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"@types/express": "^5.0.3",
+		"@types/jest": "^30.0.0",
+		"@types/jsonwebtoken": "^9.0.10",
+		"@types/node": "^24.0.13",
+		"husky": "^9.1.7",
+		"jest": "^30.0.4",
+		"lint-staged": "^16.1.2",
+		"prisma": "^6.11.1",
+		"rimraf": "^6.0.1",
+		"ts-jest": "^29.4.0",
+		"tsc-alias": "^1.8.16",
+		"tsx": "^4.20.3",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"@prisma/client": "6.11.1",
+		"bcryptjs": "^3.0.2",
+		"decimal.js": "^10.6.0",
+		"express": "^5.1.0",
+		"jsonwebtoken": "^9.0.2",
+		"moment": "^2.30.1",
+		"tsconfig-paths": "^4.2.0",
+		"zod": "^4.0.5"
+	}
+}

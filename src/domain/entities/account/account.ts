@@ -1,0 +1,74 @@
+import Decimal from "decimal.js";
+import { DomainError } from "@/domain/errors/domain-error";
+import type { User } from "../user/user";
+import type { TransactionRegister } from "./transaction-register";
+
+export abstract class Account {
+	private readonly id: string;
+	private readonly number: number;
+	private readonly agency: number;
+	private readonly holder: User;
+	protected balance: Decimal;
+	protected register: TransactionRegister;
+
+	constructor(
+		id: string,
+		number: number,
+		agency: number,
+		balance: number,
+		register: TransactionRegister,
+		holder: User
+	) {
+		this.id = id;
+		this.number = number;
+		this.agency = agency;
+		this.balance = new Decimal(balance);
+		this.register = register;
+		this.holder = holder;
+	}
+
+	async deposit(amount: number): Promise<void> {
+		const decimalAmount = new Decimal(amount);
+		if (decimalAmount.lessThanOrEqualTo(0)) {
+			throw new DomainError("Invalid deposit amount");
+		}
+
+		this.balance = this.balance.plus(decimalAmount);
+	}
+
+	async withdraw(amount: number): Promise<number> {
+		const decimalAmount = new Decimal(amount);
+		if (decimalAmount.lessThanOrEqualTo(0)) {
+			throw new DomainError("Invalid withdraw amount");
+		}
+
+		if (this.balance.lessThan(decimalAmount)) {
+			throw new DomainError("Insufficient balance");
+		}
+
+		const newBalance = this.balance.minus(decimalAmount);
+		this.balance = newBalance;
+
+		return decimalAmount.toNumber();
+	}
+
+	getId(): string {
+		return this.id;
+	}
+
+	getNumber(): number {
+		return this.number;
+	}
+
+	getAgency(): number {
+		return this.agency;
+	}
+
+	getBalance(): Decimal {
+		return this.balance;
+	}
+
+	getHolder(): User {
+		return this.holder;
+	}
+}

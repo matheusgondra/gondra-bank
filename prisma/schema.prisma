@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  cpf       String   @unique
+  birthDate DateTime @map("birth_date")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  accounts Account[]
+
+  @@map("users")
+}
+
+model Account {
+  id        String      @id @default(uuid())
+  type      AccountType
+  number    Int         @unique
+  agency    Int
+  holderId  Int         @map("holder_id")
+  balance   Decimal     @default(0.00)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @default(now()) @updatedAt @map("updated_at")
+
+  holder           User                  @relation(fields: [holderId], references: [id])
+  transactionsFrom TransactionRegister[] @relation("TransactionFrom")
+  transactionsTo   TransactionRegister[] @relation("TransactionTo")
+
+  @@map("accounts")
+}
+
+enum AccountType {
+  CHECKING
+  INVESTMENT
+}
+
+model TransactionRegister {
+  id        Int      @id @default(autoincrement())
+  type      String
+  fromId    String
+  toId      String
+  amount    Decimal  @default(0.00)
+  date      DateTime
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  fromAccount Account @relation("TransactionFrom", fields: [fromId], references: [id])
+  toAccount   Account @relation("TransactionTo", fields: [toId], references: [id])
+
+  @@map("transaction_registers")
+}

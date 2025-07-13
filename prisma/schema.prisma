@@ -39,7 +39,9 @@ model Account {
   createdAt DateTime    @default(now()) @map("created_at")
   updatedAt DateTime    @default(now()) @updatedAt @map("updated_at")
 
-  holder User @relation(fields: [holderId], references: [id])
+  holder           User                  @relation(fields: [holderId], references: [id])
+  transactionsFrom TransactionRegister[] @relation("TransactionFrom")
+  transactionsTo   TransactionRegister[] @relation("TransactionTo")
 
   @@map("accounts")
 }
@@ -47,4 +49,20 @@ model Account {
 enum AccountType {
   CHECKING
   INVESTMENT
+}
+
+model TransactionRegister {
+  id        Int      @id @default(autoincrement())
+  type      String
+  fromId    String
+  toId      String
+  amount    Decimal  @default(0.00)
+  date      DateTime
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  fromAccount Account @relation("TransactionFrom", fields: [fromId], references: [id])
+  toAccount   Account @relation("TransactionTo", fields: [toId], references: [id])
+
+  @@map("transaction_registers")
 }

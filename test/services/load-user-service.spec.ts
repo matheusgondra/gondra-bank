@@ -52,4 +52,13 @@ describe("LoadUserService", () => {
 
 		expect(user).toEqual(userMock);
 	});
+
+	it("Should return null if user is not found", async () => {
+		const { sut, userRepositoryStub } = makeSut();
+		jest.spyOn(userRepositoryStub, "loadById").mockResolvedValueOnce(null);
+
+		const user = await sut.load(userId);
+
+		expect(user).toBeNull();
+	});
 });

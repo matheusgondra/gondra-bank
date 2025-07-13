@@ -19,6 +19,8 @@ module.exports = {
 	},
 	coverageDirectory: "<rootDir>/coverage",
 	collectCoverageFrom: [
-		"src/**/*.{ts,js}"
+		"src/**/*.{ts,js}",
+		"!src/seed.{ts,js}",
+		"!src/repository/db.{ts|js}"
 	]
 };

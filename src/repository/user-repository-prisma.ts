@@ -19,4 +19,16 @@ export class UserRepositoryPrisma implements UserRepository {
 
 		return UserMapper.toDomain(user);
 	}
+
+	async loadById(id: number): Promise<User | null> {
+		const user = await this.db.user.findUnique({
+			where: { id }
+		});
+
+		if (!user) {
+			return null;
+		}
+
+		return UserMapper.toDomain(user);
+	}
 }

@@ -70,5 +70,14 @@ describe("UserRepositoryPrisma", () => {
 			expect(user).toBeDefined();
 			expect(user).toBeInstanceOf(User);
 		});
+
+		it("Should return null when no user is found by ID", async () => {
+			const { sut, dbStub } = makeSut();
+			jest.spyOn(dbStub.user, "findUnique").mockResolvedValueOnce(null);
+
+			const user = await sut.loadById(999);
+
+			expect(user).toBeNull();
+		});
 	});
 });

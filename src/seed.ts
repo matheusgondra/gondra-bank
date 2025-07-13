@@ -24,11 +24,13 @@ const db = new PrismaClient();
 async function seed() {
 	const file = await readFile(join(__dirname, "..", "users-mock.json"), "utf-8");
 	const data: DataMock = JSON.parse(file);
+
 	const users: User[] = data.users.map((user) => {
 		const email = new Email(user.email);
 		const password = new PasswordHash("StrongPassword@123");
 		const birthDate = new BirthDate(user.birthDate);
 		const cpf = new CPF(user.cpf);
+
 		return new User(parseInt(user.id), user.name, email, password, cpf, birthDate);
 	});
 
@@ -46,7 +48,43 @@ async function seed() {
 		skipDuplicates: true
 	});
 
-	console.log(`Seeded ${prismaUsers.length} users.`);
+	let accountNumber = 1;
+
+	for (const user of users) {
+		await db.account.upsert({
+			where: {
+				number: accountNumber
+			},
+			create: {
+				number: accountNumber,
+				agency: 1,
+				holderId: user.getId(),
+				balance: 0,
+				type: "CHECKING"
+			},
+			update: {}
+		});
+
+		accountNumber++;
+
+		await db.account.upsert({
+			where: {
+				number: accountNumber
+			},
+			create: {
+				number: accountNumber,
+				agency: 1,
+				holderId: user.getId(),
+				balance: 0,
+				type: "INVESTMENT"
+			},
+			update: {}
+		});
+
+		accountNumber++;
+	}
+
+	console.log(`Seeded ${users.length} users and created accounts for them.`);
 }
 
 seed()

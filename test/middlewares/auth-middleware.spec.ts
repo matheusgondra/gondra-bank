@@ -56,4 +56,16 @@ describe("AuthMiddleware", () => {
 
 		expect(httpResponse).toEqual(unauthorized(new InvalidCredentialsError()));
 	});
+
+	it("Should return 401 if token is invalid", async () => {
+		const { sut } = makeSut();
+
+		const httpRequest = {
+			authorization: "Bearer invalid_token"
+		};
+
+		const httpResponse = await sut.handle(httpRequest);
+
+		expect(httpResponse).toEqual(unauthorized(new InvalidCredentialsError()));
+	});
 });

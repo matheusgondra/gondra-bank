@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"start": "node dist/src/main/server.js",
 		"dev": "tsx --env-file .env --watch src/main/server.ts",
 		"build": "rimraf dist && tsc && tsc-alias",
 		"test": "jest --runInBand --no-cache --silent --noStackTrace --passWithNoTests",

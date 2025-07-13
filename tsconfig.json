@@ -18,8 +18,9 @@
 			"@/*": ["src/*"],
 			"@domain/*": ["src/domain/*"],
 			"@test/*": ["test/*"]
-		}
+		},
+		"allowJs": true,
 	},
-	"include": ["src", "test"],
+	"include": ["src", "test", "generated", "users-mock.json"],
 	"exclude": ["node_modules", "dist"]
 }

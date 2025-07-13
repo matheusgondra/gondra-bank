@@ -44,4 +44,12 @@ describe("LoadUserService", () => {
 
 		expect(loadByIdSpy).toHaveBeenCalledWith(1);
 	});
+
+	it("Should return a user on success", async () => {
+		const { sut } = makeSut();
+
+		const user = await sut.load(userId);
+
+		expect(user).toEqual(userMock);
+	});
 });

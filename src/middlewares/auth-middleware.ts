@@ -19,7 +19,7 @@ export class AuthMiddleware implements Middleware {
 		}
 
 		const [_bearer, token] = authorization.split(" ");
-		const payload = verify(token, process.env.JWT_SECRET as string) as JwtPayload;
+		const payload = this.verifyToken(token);
 		if (!payload || !payload.sub) {
 			return unauthorized(new InvalidCredentialsError());
 		}
@@ -31,5 +31,13 @@ export class AuthMiddleware implements Middleware {
 		}
 
 		return ok({ userId: user.getId() });
+	}
+
+	private verifyToken(token: string): JwtPayload | null {
+		try {
+			return verify(token, process.env.JWT_SECRET as string) as JwtPayload;
+		} catch {
+			return null;
+		}
 	}
 }

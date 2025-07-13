@@ -21,7 +21,8 @@ const userMock = {
 const makeDbStub = (): PrismaClient => {
 	return {
 		user: {
-			findFirst: jest.fn().mockResolvedValue(userMock)
+			findFirst: jest.fn().mockResolvedValue(userMock),
+			findUnique: jest.fn().mockResolvedValue(userMock)
 		}
 	} as unknown as PrismaClient;
 };
@@ -37,24 +38,37 @@ const makeSut = (): SutType => {
 };
 
 describe("UserRepositoryPrisma", () => {
-	const email = "any@mail.com";
-	const cpf = "12345678901";
+	describe("loadByEmailOrCpf", () => {
+		const email = "any@mail.com";
+		const cpf = "12345678901";
 
-	it("Should return a user when found by email or CPF", async () => {
-		const { sut } = makeSut();
+		it("Should return a user when found by email or CPF", async () => {
+			const { sut } = makeSut();
 
-		const user = await sut.loadByEmailOrCpf(email, cpf);
+			const user = await sut.loadByEmailOrCpf(email, cpf);
 
-		expect(user).toBeDefined();
-		expect(user).toBeInstanceOf(User);
+			expect(user).toBeDefined();
+			expect(user).toBeInstanceOf(User);
+		});
+
+		it("Should return null when no user is found", async () => {
+			const { sut, dbStub } = makeSut();
+			jest.spyOn(dbStub.user, "findFirst").mockResolvedValueOnce(null);
+
+			const user = await sut.loadByEmailOrCpf(email, cpf);
+
+			expect(user).toBeNull();
+		});
 	});
 
-	it("Should return null when no user is found", async () => {
-		const { sut, dbStub } = makeSut();
-		jest.spyOn(dbStub.user, "findFirst").mockResolvedValueOnce(null);
+	describe("loadById", () => {
+		it("Should return a user when found by ID", async () => {
+			const { sut } = makeSut();
 
-		const user = await sut.loadByEmailOrCpf(email, cpf);
+			const user = await sut.loadById(userMock.id);
 
-		expect(user).toBeNull();
+			expect(user).toBeDefined();
+			expect(user).toBeInstanceOf(User);
+		});
 	});
 });

@@ -1,17 +1,19 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import type { Controller } from "@/interfaces/controller";
 import type { HttpRequest } from "@/interfaces/http";
 
-export const routeAdapter = (controller: Controller) => {
-	return async (req: Request, res: Response) => {
+export const middlewareAdapter = (controller: Controller) => {
+	return async (req: Request, res: Response, next: NextFunction) => {
 		const httpRequest: HttpRequest = {
 			body: req.body,
-			userId: Number(req.userId)
+			authorization: req.headers.authorization
 		};
 
 		const httpResponse = await controller.handle(httpRequest);
 		if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300) {
-			return res.status(httpResponse.statusCode).json(httpResponse.body);
+			req.userId = httpResponse.body.userId;
+			next();
+			return;
 		}
 
 		return res.status(httpResponse.statusCode).json({ error: httpResponse.body.message });

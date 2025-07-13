@@ -4,7 +4,7 @@ import { badRequest, ok, serverError } from "@/helpers/http";
 import type { Controller } from "@/interfaces/controller";
 import type { HttpRequest, HttpResponse } from "@/interfaces/http";
 
-export class LaodUserController implements Controller {
+export class LoadUserController implements Controller {
 	constructor(private readonly loadUser: LoadUser) {}
 
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -16,7 +16,14 @@ export class LaodUserController implements Controller {
 				return badRequest(new UserNotFoundError());
 			}
 
-			return ok(user);
+			const userWithoutPassword = {
+				id: user.getId(),
+				name: user.getName(),
+				email: user.getEmail().getValue(),
+				cpf: user.getCPF().getValue(),
+				birthDate: user.getBirthDate().getValue()
+			};
+			return ok(userWithoutPassword);
 		} catch (error) {
 			return serverError(error as Error);
 		}

@@ -1,4 +1,4 @@
-import type { PrismaClient } from "generated/prisma";
+import type { PrismaClient } from "@/../generated/prisma";
 import { User } from "@/domain/entities/user/user";
 import { UserRepositoryPrisma } from "@/repository/user-repository-prisma";
 

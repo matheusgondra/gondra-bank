@@ -36,4 +36,15 @@ export class User {
 	getBirthDate(): BirthDate {
 		return this.birthDate;
 	}
+
+	toJSON(): string {
+		const obj = {
+			id: this.id,
+			name: this.name,
+			email: this.email.getValue(),
+			cpf: this.cpf.getValue(),
+			birthDate: this.birthDate.getValue()
+		};
+		return JSON.stringify(obj);
+	}
 }

@@ -28,6 +28,7 @@ COPY --from=builder generated ./generated
 COPY --from=builder prisma ./prisma
 COPY --from=builder users-mock.json ./dist/users-mock.json
 COPY --from=builder docker-entrypoint.sh ./docker-entrypoint.sh
+COPY --from=builder public ./public
 
 RUN chmod +x ./docker-entrypoint.sh
 

@@ -1,4 +1,3 @@
-import { join } from "node:path";
 import express from "express";
 import { routes } from "./routes";
 
@@ -12,7 +11,7 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(express.static("public"));
 routes(app);
-app.use(express.static(join(__dirname, "../../public")));
 
 export { app };

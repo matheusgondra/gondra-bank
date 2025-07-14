@@ -21,6 +21,10 @@ const makeUserRepositoryStub = (): UserRepository => {
 		async loadByEmailOrCpf(email: string, cpf: string): Promise<User | null> {
 			return userMock;
 		}
+
+		async loadById(id: number): Promise<User | null> {
+			return null;
+		}
 	}
 
 	return new UserRepositoryStub();

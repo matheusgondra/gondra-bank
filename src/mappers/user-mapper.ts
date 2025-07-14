@@ -1,4 +1,4 @@
-import type { User as UserPrisma } from "generated/prisma";
+import type { User as UserPrisma } from "@/../generated/prisma";
 import { BirthDate } from "@/domain/entities/user/birth-date";
 import { CPF } from "@/domain/entities/user/cpf";
 import { Email } from "@/domain/entities/user/email";

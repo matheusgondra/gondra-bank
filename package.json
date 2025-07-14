@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"start": "node dist/src/main/server.js",
 		"dev": "tsx --env-file .env --watch src/main/server.ts",
 		"build": "rimraf dist && tsc && tsc-alias",
 		"test": "jest --runInBand --no-cache --silent --noStackTrace --passWithNoTests",
@@ -14,7 +15,13 @@
 		"test:cov": "jest --coverage ",
 		"prepare": "husky",
 		"format": "biome check --write src test",
-		"seed": "tsx src/seed.ts"
+		"seed": "tsx src/seed.ts",
+		"migrate": "prisma migrate dev",
+		"migrate:deploy": "prisma migrate deploy",
+		"docker:build": "docker build -t gondra-bank .",
+		"docker:run": "docker run -p 3333:3333 --env-file=.env --name gondra-bank gondra-bank -d",
+		"docker:stop": "docker stop gondra-bank",
+		"docker:rm": "docker rm gondra-bank"
 	},
 	"keywords": [],
 	"author": "",

@@ -1,5 +1,5 @@
 import { makeUserMock } from "@test/helpers/user-mock";
-import { LaodUserController } from "@/controllers/load-user-controller";
+import { LoadUserController } from "@/controllers/load-user-controller";
 import type { User } from "@/domain/entities/user/user";
 import { UserNotFoundError } from "@/domain/errors/user-not-found-error";
 import type { LoadUser } from "@/domain/usecases/load-user";
@@ -7,7 +7,7 @@ import { badRequest } from "@/helpers/http";
 import type { HttpRequest } from "@/interfaces/http";
 
 interface SutType {
-	sut: LaodUserController;
+	sut: LoadUserController;
 	loadUserStub: LoadUser;
 }
 
@@ -23,7 +23,7 @@ const makeLoadUserStub = (): LoadUser => {
 
 const makeSut = (): SutType => {
 	const loadUserStub = makeLoadUserStub();
-	const sut = new LaodUserController(loadUserStub);
+	const sut = new LoadUserController(loadUserStub);
 
 	return {
 		sut,
@@ -43,5 +43,14 @@ describe("LoadUserController", () => {
 		const response = await sut.handle(httpRequest);
 
 		expect(response).toEqual(badRequest(new UserNotFoundError()));
+	});
+
+	it("Should call LoadUser with correct id", async () => {
+		const { sut, loadUserStub } = makeSut();
+		const loadSpy = jest.spyOn(loadUserStub, "load");
+
+		await sut.handle(httpRequest);
+
+		expect(loadSpy).toHaveBeenCalledWith(httpRequest.userId);
 	});
 });
